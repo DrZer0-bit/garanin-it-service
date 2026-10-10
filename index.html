@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Класс js ставим до отрисовки: без JS контент виден сразу, с JS — появляется при скролле -->
+    <script>document.documentElement.classList.add('js');</script>
+    <title>«Гаранин | ИТ-сервисы» — 1С-автоматизация и финансовый инжиниринг</title>
+    <meta name="description" content="«Гаранин | ИТ-сервисы» — 1С-автоматизация, финансовый учёт и интеграции для холдингов. Более 20 лет опыта команды, ориентированные на измеримые бизнес-результаты.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#16213e">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="«Гаранин | ИТ-сервисы»">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:title" content="«Гаранин | ИТ-сервисы» — 1С-автоматизация и финансовый инжиниринг">
+    <meta property="og:description" content="Архитектура 1С, МСФО / ПБУ 2/2008 и интеграции для холдингов: более 20 лет опыта команды «Гаранин | ИТ-сервисы».">
+    <!-- Пути только относительные: при смене домена или подпапки ничего не ломается -->
+    <meta property="og:image" content="assets/og-cover.png">
+    <meta property="og:image:alt" content="«Гаранин | ИТ-сервисы» — архитектура 1С и финансовый инжиниринг">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="./index.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="«Гаранин | ИТ-сервисы» — 1С-автоматизация и финансовый инжиниринг">
+    <meta name="twitter:description" content="Архитектура 1С, финансовый инжиниринг (МСФО, ПБУ 2/2008) и интеграции для холдингов.">
+    <meta name="twitter:image" content="assets/og-cover.png">
+    <link rel="icon" type="image/svg+xml" href="assets/logo-mark.svg">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Структурированные данные: помогают поисковикам и AI-поиску понять компанию и услуги -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "ProfessionalService",
+                "@id": "#organization",
+                "name": "«Гаранин | ИТ-сервисы»",
+                "description": "ИТ-сервис 1С: архитектура, разработка и интеграции для холдингов. Финансовый инжиниринг (МСФО, ПБУ 2/2008), бюджетирование и казначейство, права доступа, отраслевые решения.",
+                "email": "andrey_g1979@list.ru",
+                "sameAs": ["https://t.me/garanin_it_services"],
+                "areaServed": "RU",
+                "inLanguage": "ru",
+                "slogan": "Решаем сложные задачи в 1С, где типовых решений недостаточно",
+                "knowsAbout": [
+                    "1С:ERP Управление холдингом",
+                    "1С:ERP Управление предприятием 2",
+                    "1С:УПП",
+                    "БИТ.Финанс",
+                    "1С:ЗУП",
+                    "1С:БП",
+                    "1С:УТ",
+                    "МСФО",
+                    "ПБУ 2/2008",
+                    "Казначейство",
+                    "Бюджетирование",
+                    "Интеграции 1С и API",
+                    "Права доступа и RLS"
+                ],
+                "hasOfferCatalog": {
+                    "@type": "OfferCatalog",
+                    "name": "Направления работ",
+                    "itemListElement": [
+                        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Бюджетирование и казначейство" } },
+                        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Интеграции и обмены" } },
+                        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "HR и расчёты" } },
+                        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Аналитики и трансляции" } },
+                        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Права доступа и профили" } },
+                        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Отраслевые решения" } }
+                    ]
+                }
+            },
+            {
+                "@type": "WebSite",
+                "@id": "#website",
+                "name": "«Гаранин | ИТ-сервисы» — сайт-визитка ИТ-сервиса 1С",
+                "inLanguage": "ru",
+                "publisher": { "@id": "#organization" }
+            }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+    <!-- Слой фона: зафиксирован, не скроллится, 3D-сцена на canvas -->
+    <div id="background-layer" aria-hidden="true">
+        <canvas id="bg-canvas"></canvas>
+    </div>
+
+    <!-- Слой контента: лежит поверх фона, фон прозрачный -->
+    <div id="content-layer">
+        <header>
+            <nav class="nav" aria-label="Навигация по разделам">
+                <a class="brand" href="#hero">
+                    <img src="assets/logo-garanin-inverse.svg" alt="Гаранин — ИТ-сервисы" width="164" height="46">
+                </a>
+                <ul>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#competencies">Направления</a></li>
+                    <li><a href="#cases">Кейсы</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main id="main">
+            <!-- Блок проблем: с чем приходят клиенты -->
+            <section id="problems" class="problems">
+                <div class="container">
+                    <h2 class="section-title">С этим приходят клиенты</h2>
+                    <p class="section-lead">Пять проблем, с которыми чаще всего приходит клиент. Каждая — повод для аудита.</p>
+                    <div class="grid problem-grid">
+                        <div class="card problem-card reveal" data-reveal>
+                            <div class="icon" aria-hidden="true">⚖</div>
+                            <h3>Данные расходятся</h3>
+                            <p>Боль: отчёты и балансы не сходятся, между системами расхождения. Наше действие: аудит данных и сверка контуров учёта.</p>
+                        </div>
+                        <div class="card problem-card reveal" data-reveal>
+                            <div class="icon" aria-hidden="true">⇄</div>
+                            <h3>Интеграции ломаются</h3>
+                            <p>Боль: маркетплейсы, CRM, обмен между 1С-серверами. Наше действие: восстановление обменов, логирование и мониторинг.</p>
+                        </div>
+                        <div class="card problem-card reveal" data-reveal>
+                            <div class="icon" aria-hidden="true">Σ</div>
+                            <h3>Отчёты не сходятся</h3>
+                            <p>Боль: ПБУ 2/2008, казначейство, МСФО. Наше действие: настройка аналитик, трансляций и отчётности финансового блока.</p>
+                        </div>
+                        <div class="card problem-card reveal" data-reveal>
+                            <div class="icon" aria-hidden="true">🔓</div>
+                            <h3>Права открыты</h3>
+                            <p>Боль: RLS не настроено, доступы шире, чем нужно. Наше действие: карта доступа, профили, ограничения по ЦФО и организациям.</p>
+                        </div>
+                        <div class="card problem-card reveal" data-reveal>
+                            <div class="icon" aria-hidden="true">↻</div>
+                            <h3>Обновления всё ломают</h3>
+                            <p>Боль: апгрейд ломает функционал и трансляции. Наше действие: план обновления, восстановление данных, аудит после релиза.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Карусель логотипов: социальное доказательство, мостик к представлению компании -->
+            <section id="logos" aria-label="Компании, с которыми мы работали">
+                <div class="logos-plate reveal" data-reveal>
+                    <div class="logos-row">
+                        <div class="logos-track">
+                            <img src="assets/logos/mig.svg" alt="Логотип компании MIG (МедИнвестГрупп)">
+                            <img src="assets/logos/o1-group.svg" alt="Логотип компании O1 Group">
+                            <img src="assets/logos/brixo.svg" alt="Логотип компании Brixo">
+                            <img src="assets/logos/stella-tehnik.svg" alt="Логотип компании Стелла-техник">
+                            <img src="assets/logos/natcar.svg" alt="Логотип компании NATCAR (Национальный перевозчик)">
+                            <img src="assets/logos/mashservice.svg" alt="Логотип компании Машсервис">
+                            <img src="assets/logos/mars-style.svg" alt="Логотип компании Марс Стиль">
+                            <img src="assets/logos/sapran-afb.svg" alt="Логотип Сапран / АФБ (Авто Финанс Банк)">
+                            <img src="assets/logos/oek.svg" alt="Логотип ОЭК (Объединенная энергетическая компания)">
+                            <img src="assets/logos/rubin.svg" alt="Логотип компании Рубин">
+                            <img src="assets/logos/domiland.svg" alt="Логотип компании Домилэнд (СНТ)">
+                        </div>
+                        <!-- Дублирующий набор нужен для бесшовной прокрутки, для скринридеров скрыт -->
+                        <div class="logos-track" aria-hidden="true">
+                            <img src="assets/logos/mig.svg" alt="" loading="lazy">
+                            <img src="assets/logos/o1-group.svg" alt="" loading="lazy">
+                            <img src="assets/logos/brixo.svg" alt="" loading="lazy">
+                            <img src="assets/logos/stella-tehnik.svg" alt="" loading="lazy">
+                            <img src="assets/logos/natcar.svg" alt="" loading="lazy">
+                            <img src="assets/logos/mashservice.svg" alt="" loading="lazy">
+                            <img src="assets/logos/mars-style.svg" alt="" loading="lazy">
+                            <img src="assets/logos/sapran-afb.svg" alt="" loading="lazy">
+                            <img src="assets/logos/oek.svg" alt="" loading="lazy">
+                            <img src="assets/logos/rubin.svg" alt="" loading="lazy">
+                            <img src="assets/logos/domiland.svg" alt="" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hero: первый смысловой экран. Визуал — абстрактная 3D-сцена в слое фона -->
+            <section id="hero" class="hero">
+                <div class="container">
+                    <h1>«Гаранин | ИТ-сервисы»: Архитектура 1С и финансовый инжиниринг в масштабе холдингов</h1>
+                    <p class="subtitle">Более 20 лет опыта команды в построении и оптимизации систем управления финансами, производством и интеграциями на базе 1С. Ориентированы на измеримые бизнес-результаты.</p>
+                    <div class="hero-actions">
+                        <a href="#contact" class="btn primary">Напишите нам (мы вышлем вам КД)</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- О нас -->
+            <section id="about">
+                <div class="container">
+                    <h2>О нас: кто мы, что делаем, зачем</h2>
+                    <div class="about-content">
+                        <div class="about-facts card reveal" data-reveal>
+                            <ul>
+                                <li><strong>Название:</strong> «Гаранин | ИТ-сервисы»</li>
+                                <li><strong>Специализация:</strong> сложные проекты, где типовых решений недостаточно</li>
+                                <li><strong>Опыт:</strong> эксперт в области 1С, 20+ лет практики</li>
+                                <li><strong>Отрасли:</strong> холдинги, банки, производство, логистика, торговля, медицина, ЖКХ</li>
+                            </ul>
+                        </div>
+                        <div class="about-text">
+                            <p>Мы — ИТ-сервис 1С для холдингов: проектируем масштабируемые архитектуры, строим финансовый учёт (МСФО, ПБУ 2/2008, БДДС, казначейство) и связываем 1С с внешними корпоративными системами.</p>
+                            <p>Компания не продаёт часы — мы решаем задачи, которые стоят бизнесу денег, времени и репутации.</p>
+                            <p><strong>Как мы держим качество:</strong> полный цикл управления проектами; архитектурное проектирование; управление рисками в Agile.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Подход: 5 этапов без воды -->
+            <section id="approach">
+                <div class="container">
+                    <h2>Как мы работаем</h2>
+                    <p class="section-lead">Пять этапов. На выходе каждого — артефакт, по которому можно принимать решения.</p>
+                    <ol class="approach-timeline">
+                        <li class="card reveal approach-step is-active" data-reveal>
+                            <h3>Аудит</h3>
+                            <p>Аудит-мемо: текущее состояние 1С, данных и интеграций.</p>
+                        </li>
+                        <li class="card reveal approach-step" data-reveal>
+                            <h3>Архитектура</h3>
+                            <p>Схема архитектуры: масштабируемый план решения.</p>
+                        </li>
+                        <li class="card reveal approach-step" data-reveal>
+                            <h3>Разработка</h3>
+                            <p>ТЗ и код: задачи, которые нужно решить, и их реализация.</p>
+                        </li>
+                        <li class="card reveal approach-step" data-reveal>
+                            <h3>Внедрение</h3>
+                            <p>Релиз-план: поставка в работу без остановки учёта.</p>
+                        </li>
+                        <li class="card reveal approach-step" data-reveal>
+                            <h3>Поддержка</h3>
+                            <p>SLA-поддержка: сопровождение, обновления, аудит после релизов.</p>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Компетенции: 6 направлений -->
+            <section id="competencies">
+                <div class="container">
+                    <h2>Что мы делаем</h2>
+                    <p class="section-lead">Шесть направлений: задачи, которые закрываем, и результат, который получает бизнес.</p>
+                    <div class="grid competencies-grid">
+                        <div class="card competency-card reveal" data-reveal>
+                            <h3>Бюджетирование и казначейство</h3>
+                            <p>ЗРДС, реестр платежей, операционный план, платёжный календарь, лимиты, маршруты согласования, автозаполнение аналитик, обмен между ERP и УХ, отчётность для финансового блока.</p>
+                        </div>
+                        <div class="card competency-card reveal" data-reveal>
+                            <h3>Интеграции и обмены</h3>
+                            <p>Маркетплейсы, CRM, банки, государственные системы, внешние сервисы: API-интеграции, КД2, XDTO, JSON, XML, HTTP, FBS/FBO, обработка ошибок, логирование, мониторинг обменов.</p>
+                        </div>
+                        <div class="card competency-card reveal" data-reveal>
+                            <h3>HR и расчёты</h3>
+                            <p>Ведомости начислений в разрезе МВЗ, НДФЛ, страховые, средний заработок, ГПХ, разовые начисления, отпуска, командировки, воинский учёт, загрузка персональных данных, переход с SAP.</p>
+                        </div>
+                        <div class="card competency-card reveal" data-reveal>
+                            <h3>Аналитики и трансляции</h3>
+                            <p>Заполнение аналитик в документах, правила трансляции БИТ.Финанс, соответствия аналитик, поиск расхождений, восстановление данных после обновлений.</p>
+                        </div>
+                        <div class="card competency-card reveal" data-reveal>
+                            <h3>Права доступа и профили</h3>
+                            <p>Настройка ролей и профилей, ограничения по организациям, ЦФО, подразделениям, аудит после обновлений, карта доступа, исправление ошибок «Недостаточно прав».</p>
+                        </div>
+                        <div class="card competency-card reveal" data-reveal>
+                            <h3>Отраслевые решения</h3>
+                            <p>СНТ/ЖКХ, стоматология, медцентры: интеграция отраслевых 1С с внешними сервисами, разработка коннекторов, настройка обмена.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Кейсы: по одному направлению — своя группа -->
+            <section id="cases">
+                <div class="container">
+                    <h2>Кейсы</h2>
+                    <p class="section-lead">По каждой компетенции — кейс: компания, вид деятельности, боль, решение, результат.</p>
+                    <div class="case-group">
+                        <h3>Бюджетирование и казначейство</h3>
+                        <div class="grid">
+                            <article class="card achievement-card reveal" data-reveal>
+                                <h3>МИГ (МедИнвестГрупп)</h3>
+                                <p class="case-industry">Инвестиции в здравоохранение</p>
+                                <p><strong>Боль:</strong> финансовый блок работал вручную. Платежи, реестры, бюджеты — всё разрозненно. Не было единой картины по холдингу, данные между ERP и УХ расходились.</p>
+                                <p><strong>Решение:</strong> доработали 1С:ERP УХ и 1С:ERP УП2. Настроили бюджетирование и казначейство. Настроили роли и профили для финансового блока. Связали данные между системами.</p>
+                                <div class="achievement-result">Финансовый блок получил единое окно для управления платежами и бюджетом. Снизилась нагрузка на ручные операции, повысилась прозрачность.</div>
+                            </article>
+                            <article class="card achievement-card reveal" data-reveal>
+                                <h3>O1 Group</h3>
+                                <p class="case-industry">Управление недвижимостью</p>
+                                <p><strong>Боль:</strong> распределение затрат по объектам велось вручную. Руководство не видело актуальной картины по портфелю. Отчётность запаздывала.</p>
+                                <p><strong>Решение:</strong> доработали 1С:УХ. Настроили распределение затрат по объектам и периодам. Настроили автозаполнение аналитик. Настроили управленческую отчётность.</p>
+                                <div class="achievement-result">Руководство получило прозрачную картину по объектам и периодам. Решения по затратам принимаются на основе актуальных данных.</div>
+                            </article>
+                            <article class="card achievement-card reveal" data-reveal>
+                                <h3>Brixo</h3>
+                                <p class="case-industry">Импорт и дистрибуция автомобильных запчастей</p>
+                                <p><strong>Боль:</strong> управленческая отчётность формировалась вручную. Данные не сходились, себестоимость считалась некорректно. После обновлений трансляции ломались. Инвесторам требовалась отдельная отчётность, которую готовили вручную.</p>
+                                <p><strong>Решение:</strong> настроили БИТ.Финанс. Настроили правила трансляции и соответствия аналитик. Настроили и разработали управленческую отчётность и отчётность для инвесторов. Восстановили данные после обновлений.</p>
+                                <div class="achievement-result">Управленческая и инвестиционная отчётность формируется автоматически, без ручных сводок. Себестоимость считается корректно. Руководство и инвесторы получают достоверные данные для принятия решений.</div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <div class="case-group">
+                        <h3>Интеграции и обмены</h3>
+                        <div class="grid">
+                            <article class="card achievement-card reveal" data-reveal>
+                                <h3>Стелла-техник</h3>
+                                <p class="case-industry">Оптовая торговля складской техникой и оборудованием</p>
+                                <p><strong>Боль:</strong> продажи на маркетплейсах велись вручную. Заказы, остатки и цены сводились вручную. Ошибки и задержки. Не было прозрачной картины по продажам и возвратам.</p>
+                                <p><strong>Решение:</strong> сделали интеграции с шестью маркетплейсами. Настроили загрузку заказов, остатков, цен. Настроили схемы FBS/FBO. Настроили и разработали отчётность по продажам и возвратам.</p>
+                                <div class="achievement-result">Продажи на маркетплейсах управляются из одной системы. Руководство видит прозрачную картину по продажам и возвратам. Снизились ручные операции и ошибки.</div>
+                            </article>
+                            <article class="card achievement-card reveal" data-reveal>
+                                <h3>NATCAR (Национальный перевозчик)</h3>
+                                <p class="case-industry">Транспортно-логистическая компания</p>
+                                <p><strong>Боль:</strong> заявки и согласования велись вручную. Между ТЛЭ и УХ данные расходились. Задержки в платежах и согласованиях.</p>
+                                <p><strong>Решение:</strong> доработали 1С:ТЛ КОРП и 1С:УХ. Сделали интеграцию ТЛЭ–УХ. Настроили заявки на расходование ДС, статусы согласования, лимитированные статьи.</p>
+                                <div class="achievement-result">Управление заявками и платежами стало предсказуемым. Снизились задержки.</div>
+                            </article>
+                            <article class="card achievement-card reveal" data-reveal>
+                                <h3>Машсервис</h3>
+                                <p class="case-industry">Оптовая торговля промышленным оборудованием</p>
+                                <p><strong>Боль:</strong> интеграция с сайтом работала на устаревшей версии 1С. Данные выгружались некорректно. Каждый обмен требовал ручных правок.</p>
+                                <p><strong>Решение:</strong> доработали 1С:УТ 11. Перенесли модуль интеграции с сайтом на актуальную версию. Настроили работу с картинками и описаниями. Настроили выгрузку данных на сайт.</p>
+                                <div class="achievement-result">Интеграция работает на актуальной версии, данные выгружаются корректно.</div>
+                            </article>
+                            <article class="card achievement-card reveal" data-reveal>
+                                <h3>Марс Стиль</h3>
+                                <p class="case-industry">Продажа спецодежды и средств защиты</p>
+                                <p><strong>Боль:</strong> сайт получал некорректные данные по товарам. Свойства номенклатуры не выгружались. Каждая выгрузка требовала ручных правок.</p>
+                                <p><strong>Решение:</strong> доработали 1С:УТ 11. Сделали интеграцию с 1С-Битрикс. Настроили выгрузку предложений. Настроили выгрузку свойств номенклатуры.</p>
+                                <div class="achievement-result">Сайт получает корректные данные, снизились ручные правки.</div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <div class="case-group">
+                        <h3>HR и расчёты</h3>
+                        <div class="grid">
+                            <article class="card achievement-card reveal" data-reveal>
+                                <h3>Сапран / АФБ (Авто Финанс Банк)</h3>
+                                <p class="case-industry">Специализированный автомобильный банк</p>
+                                <p><strong>Боль:</strong> банк работал на SAP. Расчёты и отчётность не отвечали требованиям. Переход на новую систему затягивался.</p>
+                                <p><strong>Решение:</strong> перешли на 1С:ЗУП КОРП. Настроили кадровый учёт. Настроили расчёт зарплаты. Настроили отчётность.</p>
+                                <div class="achievement-result">Банк получил управляемый HR-контур. Расчёты сходятся, отчётность готова к проверкам.</div>
+                            </article>
+                            <article class="card achievement-card reveal" data-reveal>
+                                <h3>ОЭК (Объединенная энергетическая компания)</h3>
+                                <p class="case-industry">Передача и распределение электроэнергии</p>
+                                <p><strong>Боль:</strong> кадровая отчётность не соответствовала требованиям. Заявки обрабатывались медленно. Учёт вёлся разрозненно.</p>
+                                <p><strong>Решение:</strong> внедрили 1С:ЗУП КОРП и 1С:БП КОРП. Настроили кадровый учёт. Настроили расчёт зарплаты. Исправили отчётность.</p>
+                                <div class="achievement-result">Кадровая отчётность соответствует требованиям. Заявки обрабатываются быстрее.</div>
+                            </article>
+                            <article class="card achievement-card reveal" data-reveal>
+                                <h3>МИГ (МедИнвестГрупп)</h3>
+                                <p class="case-industry">Инвестиции в здравоохранение</p>
+                                <p><strong>Боль:</strong> кадровый учёт и расчёт зарплаты не отвечали требованиям холдинга. Данные расходились между системами.</p>
+                                <p><strong>Решение:</strong> доработали 1С:ЗУП КОРП. Настроили кадровый учёт. Настроили расчёт зарплаты.</p>
+                                <div class="achievement-result">Кадровый контур работает стабильно.</div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <div class="case-group">
+                        <h3>Аналитики и трансляции</h3>
+                        <div class="grid">
+                            <article class="card achievement-card reveal" data-reveal>
+                                <h3>Рубин</h3>
+                                <p class="case-industry">Торговля нефтепродуктами и ГСМ</p>
+                                <p><strong>Боль:</strong> аналитики в документах не заполнялись. Отчётность не сходилась. Себестоимость считалась некорректно. После переноса данных появились расхождения.</p>
+                                <p><strong>Решение:</strong> доработали БИТ.Финанс. Настроили заполнение аналитик. Настроили отчётность. Провели сверку данных после переноса.</p>
+                                <div class="achievement-result">Отчётность сходится. Себестоимость считается корректно.</div>
+                            </article>
+                            <article class="card achievement-card reveal" data-reveal>
+                                <h3>O1 Group</h3>
+                                <p class="case-industry">Управление недвижимостью</p>
+                                <p><strong>Боль:</strong> аналитики в операционном плане и ЗНО заполнялись вручную. Данные не сходились. Распределение затрат по объектам было трудоёмким.</p>
+                                <p><strong>Решение:</strong> доработали 1С:УХ. Настроили заполнение аналитик. Настроили распределение по объектам и периодам.</p>
+                                <div class="achievement-result">Данные в операционном плане корректны. Отчётность готова для руководства.</div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <div class="case-group">
+                        <h3>Права доступа и профили</h3>
+                        <div class="grid">
+                            <article class="card achievement-card reveal" data-reveal>
+                                <h3>Рубин</h3>
+                                <p class="case-industry">Торговля нефтепродуктами и ГСМ</p>
+                                <p><strong>Боль:</strong> пользователи видели документы и данные, которые не должны были видеть. Доступ к закрытым ЦФО был открыт. Риск утечки данных.</p>
+                                <p><strong>Решение:</strong> провели анализ профилей. Выявили роли без ограничений. Настроили ограничения доступа. Исправили ошибки.</p>
+                                <div class="achievement-result">Доступ приведён в соответствие с регламентом.</div>
+                            </article>
+                            <article class="card achievement-card reveal" data-reveal>
+                                <h3>NATCAR (Национальный перевозчик)</h3>
+                                <p class="case-industry">Транспортно-логистическая компания</p>
+                                <p><strong>Боль:</strong> права доступа были настроены разрозненно. Распределённая команда работала с разными наборами прав. Управление доступом было непрозрачным.</p>
+                                <p><strong>Решение:</strong> настроили профили. Настроили группы доступа. Настроили права для отчётов и обработок.</p>
+                                <div class="achievement-result">Управление доступом стало прозрачным.</div>
+                            </article>
+                            <article class="card achievement-card reveal" data-reveal>
+                                <h3>МИГ (МедИнвестГрупп)</h3>
+                                <p class="case-industry">Инвестиции в здравоохранение</p>
+                                <p><strong>Боль:</strong> финансовый блок работал с избыточными правами. Пользователи видели лишние данные. Ошибки доступа мешали работе.</p>
+                                <p><strong>Решение:</strong> провели анализ ролей. Настроили профили. Настроили ограничения по организациям, ЦФО, подразделениям. Исправили ошибки доступа.</p>
+                                <div class="achievement-result">Пользователи видят только то, что должны. Снизились риски утечки данных.</div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <div class="case-group">
+                        <h3>Отраслевые решения</h3>
+                        <div class="grid">
+                            <article class="card achievement-card reveal" data-reveal>
+                                <h3>Домилэнд (СНТ)</h3>
+                                <p class="case-industry">Интеграция с внешним SaaS для садоводческих товариществ</p>
+                                <p><strong>Боль:</strong> данные между 1С и внешним сервисом вводились вручную. Информация о клиентах, лицевых счетах, оплатах и начислениях расходилась. Ошибки и задержки.</p>
+                                <p><strong>Решение:</strong> доработали 1С:Инфокрафт: Бухгалтерия СНТ. Настроили авторизацию по токену. Настроили обмен JSON. Настроили выгрузку данных. Настроили обработку ошибок.</p>
+                                <div class="achievement-result">Данные синхронизируются автоматически. Ручной ввод исключён.</div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Отраслевые решения -->
+            <section id="industries">
+                <div class="container">
+                    <h2>Отраслевые решения</h2>
+                    <div class="grid industries-grid">
+                        <div class="card industry-card reveal" data-reveal>
+                            <h3>СНТ/ЖКХ</h3>
+                            <p>Садоводческие товарищества: интеграция 1С с внешними сервисами, обмен JSON, авторизация по токену.</p>
+                        </div>
+                        <div class="card industry-card reveal" data-reveal>
+                            <h3>Стоматология</h3>
+                            <p>Клиники: интеграция с внешними сервисами, разработка коннекторов, настройка обмена.</p>
+                        </div>
+                        <div class="card industry-card reveal" data-reveal>
+                            <h3>Медцентры</h3>
+                            <p>Медицинские центры: интеграция с внешними сервисами, коннекторы, настройка обмена.</p>
+                        </div>
+                        <div class="card industry-card reveal" data-reveal>
+                            <h3>Логистика</h3>
+                            <p>Транспортно-логистические компании: заявки, статусы согласования, лимитированные статьи.</p>
+                        </div>
+                        <div class="card industry-card reveal" data-reveal>
+                            <h3>Банки</h3>
+                            <p>Финансовые институты: кадровый учёт, расчёт зарплаты, отчётность, ограничение доступа по ЦФО.</p>
+                        </div>
+                        <div class="card industry-card reveal" data-reveal>
+                            <h3>Производство</h3>
+                            <p>Производственные предприятия: себестоимость, аналитики, трансляции, отчётность.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Конфигурации -->
+            <section id="configurations">
+                <div class="container">
+                    <h2>С какими конфигурациями работаем</h2>
+                    <div class="grid configurations-grid">
+                        <div class="card config-card reveal" data-reveal>
+                            <h3>1С:ERP</h3>
+                            <p>Управление холдингом, Управление предприятием 2, УПП.</p>
+                        </div>
+                        <div class="card config-card reveal" data-reveal>
+                            <h3>БИТ.Финанс</h3>
+                            <p>Финансовый учёт, МСФО, ПБУ 2/2008, аналитики, трансляции.</p>
+                        </div>
+                        <div class="card config-card reveal" data-reveal>
+                            <h3>1С:УХ</h3>
+                            <p>Управление холдингом: распределение затрат, отчётность.</p>
+                        </div>
+                        <div class="card config-card reveal" data-reveal>
+                            <h3>1С:ЗУП 2.5/3.1</h3>
+                            <p>Кадровый учёт, расчёт зарплаты, отчётность.</p>
+                        </div>
+                        <div class="card config-card reveal" data-reveal>
+                            <h3>1С:БП</h3>
+                            <p>Бухгалтерия предприятия, сверка, отчётность.</p>
+                        </div>
+                        <div class="card config-card reveal" data-reveal>
+                            <h3>1С:УТ</h3>
+                            <p>Торговля: обмен с сайтом, товары, цены, остатки.</p>
+                        </div>
+                        <div class="card config-card reveal" data-reveal>
+                            <h3>1С:КА</h3>
+                            <p>Кассы, платежи, казначейство.</p>
+                        </div>
+                        <div class="card config-card reveal" data-reveal>
+                            <h3>Инфокрафт</h3>
+                            <p>Отраслевые решения: Бухгалтерия СНТ, обмен JSON.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Бизнес переписка: контакты без формы -->
+            <section id="contact" class="contact">
+                <div class="container">
+                    <h2>Напишите нам (мы вышлем вам КД)</h2>
+                    <p class="section-lead">Раздел «Бизнес переписка»: напишите на email или в Telegram — вышлем коммерческую документацию (КД) и вернёмся с уточняющими вопросами.</p>
+                    <div class="contact-info">
+                        <p class="contact-name">«Гаранин | ИТ-сервисы»</p>
+                        <ul class="contact-list">
+                            <li>Email: <a class="contact-email" href="mailto:andrey_g1979@list.ru">andrey_g1979@list.ru</a></li>
+                            <li>Telegram: <a class="contact-telegram" href="https://t.me/garanin_it_services" target="_blank" rel="noopener">@garanin_it_services</a></li>
+                            <li>Телефон: <a class="contact-phone" href="tel:+79025768815">+7(902)5768815</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>© 2026 ИП Гаранин Андрей Николаевич ИНН 381009990900 ОГРНИП 318385000115738 г. Иркутск, ул. Р-Люксембург, 181 Телефон <a href="tel:+79025768815">+7(902)5768815</a></p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
